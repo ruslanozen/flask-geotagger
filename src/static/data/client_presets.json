@@ -1,0 +1,107 @@
+{
+  "version": "1.0",
+  "presets": [
+    {
+      "id": "1",
+      "name": "Just Call Appliance Repair",
+      "contact_info": {
+        "byline": "Just Call Appliance Repair",
+        "byline_title": "Appliance Repair Service",
+        "address": "3440 Toringdon Way, Unit 217, Charlotte, NC 28277, United States",
+        "city": "Charlotte",
+        "postal_code": "28277",
+        "state_province": "NC",
+        "country": "USA",
+        "phone": "(980) 505-8560",
+        "email": "info@justcallappliancerepair.com",
+        "url": "https://www.justcallappliancerepair.com/"
+      },
+      "keywords": ["Appliance Repair", "Appliance Repair Services"]
+    },
+    {
+      "id": "2",
+      "name": "Rich Home",
+      "contact_info": {
+        "byline": "Rich Home Inc.",
+        "byline_title": "Rich Home Construction Services",
+        "address": "7436 Matteo Dr, Niagara Falls, ON L2H 3T3",
+        "city": "Niagara Falls",
+        "postal_code": "L2H 3T3",
+        "state_province": "ON",
+        "country": "CAN",
+        "phone": "(980) 505-8560",
+        "email": "info@richhomeinc.ca",
+        "url": "https://richhomeinc.ca/"
+      },
+      "keywords": ["Renovation", "Renovation Specialists", "Home Renovation", "Construction Specialists"]
+    },
+    {
+      "id": "3",
+      "name": "Toronto Watch Exchange",
+      "contact_info": {
+        "byline": "Toronto Watch Exchange",
+        "byline_title": "Toronto Watch Exchange",
+        "address": "",
+        "city": "",
+        "postal_code": "",
+        "state_province": "",
+        "country": "CAN",
+        "phone": "(866) 627-2747",
+        "email": "info@torontowatchexchange.com",
+        "url": "https://torontowatchexchange.com/"
+      },
+      "keywords": ["Watch", "Lucury Watches", "Watch Trade", "Luxury Watch Exchange", "Luxury Watch Marketplace", "Luxury Watch Shop"]
+    },
+    {
+      "id": "4",
+      "name": "Heat Flow",
+      "contact_info": {
+        "byline": "Heat Flow HVAC",
+        "byline_title": "Heat Flow HVAC Services",
+        "address": "2349 Fairview St Unit 107",
+        "city": "Burlington",
+        "postal_code": "L7R 2E3",
+        "state_province": "ON",
+        "country": "CAN",
+        "phone": "+16478477751",
+        "email": "info@heatflowhvac.ca",
+        "url": "https://www.heatflowhvac.ca/"
+      },
+      "keywords": ["HVAC Services", "Heat Flow HVAC", "HVAC Repair", "HVAC Installation", "HVAC Maintenance"]
+    },
+    {
+      "id": "5",
+      "name": "Cold Fuel",
+      "contact_info": {
+        "byline": "Cold Fuel Refrigeration & HVAC",
+        "byline_title": "Cold Fuel Refrigeration & HVAC Services",
+        "address": "242 Applewood Crescent #4",
+        "city": "Concord",
+        "postal_code": "L4K 4E5",
+        "state_province": "ON",
+        "country": "CAN",
+        "phone": "+16476895944",
+        "email": "info@coldfuel.ca",
+        "url": "https://coldfuel.ca/"
+      },
+      "keywords": ["HVAC Services", "Cold Fuel HVAC", "HVAC Repair", "HVAC Installation", "HVAC Maintenance", "Refrigeration Experts", "Refrigeration Services", "Refrigeration Contractors"]
+    },
+    {
+      "id": "6",
+      "name": "Modern Sense Furniture",
+      "contact_info": {
+        "byline": "Modern Sense Furniture",
+        "byline_title": "MSF",
+        "address": "1875 Wilson Ave",
+        "city": "North York",
+        "postal_code": "M9M 1A2",
+        "state_province": "ON",
+        "country": "CAN",
+        "phone": "+14167469381",
+        "email": "info@modernsensefurniture.com",
+        "url": "https://www.modernsensefurniture.com/"
+      },
+      "keywords": ["Luxury Furniture", "Italian Furniture", "Furniture Shop", "Furniture Shop Near Me"]
+    }
+  ]
+}

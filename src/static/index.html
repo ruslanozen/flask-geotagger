@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processor Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <div class="sidebar-header">
+                    <h3>Image Processor</h3>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-section="geotagging">
+                            <i class="bi bi-geo-alt"></i> Geotagging
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="conversion">
+                            <i class="bi bi-arrow-repeat"></i> Conversion
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="resizing">
+                            <i class="bi bi-aspect-ratio"></i> Resizing
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="watermark">
+                            <i class="bi bi-image"></i> Watermark
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="presets">
+                            <i class="bi bi-gear"></i> Presets Manager
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- Geotagging Section -->
+                <div class="content-section active" id="geotagging-section">
+                    <h2>Image Geotagging</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="geotagging-form">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Coordinates</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="latitude" placeholder="Latitude (e.g., 43.651070)">
+                                                <input type="text" class="form-control" id="longitude" placeholder="Longitude (e.g., -79.347015)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Date/Time</label>
+                                            <input type="datetime-local" class="form-control" id="datetime">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">City Preset</label>
+                                            <select class="form-select" id="city-preset">
+                                                <option value="">Select a city preset</option>
+                                                <!-- Will be populated dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Client Preset</label>
+                                            <select class="form-select" id="client-preset">
+                                                <option value="">Select a client preset</option>
+                                                <!-- Will be populated dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="use-random-coordinates">
+                                            <label class="form-check-label" for="use-random-coordinates">
+                                                Use random coordinates for bulk images
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Output Format</label>
+                                            <select class="form-select" id="output-format">
+                                                <option value="jpeg">JPEG</option>
+                                                <option value="png">PNG</option>
+                                                <option value="tiff">TIFF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Contact Information</label>
+                                            <div class="row g-2">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" id="creator" placeholder="Creator/Artist">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" id="creator-title" placeholder="Creator Title">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="address" placeholder="Address">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="city" placeholder="City">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="row g-2">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="state" placeholder="State/Province">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="country" placeholder="Country">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="row g-2">
+                                            <div class="col-md-4">
+                                                <input type="tel" class="form-control" id="phone" placeholder="Phone">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="url" class="form-control" id="url" placeholder="Website URL">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Keywords (comma separated)</label>
+                                            <input type="text" class="form-control" id="keywords" placeholder="e.g., landscape, nature, toronto">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Upload Images</label>
+                                            <div class="upload-area" id="upload-area">
+                                                <div class="upload-prompt">
+                                                    <i class="bi bi-cloud-arrow-up"></i>
+                                                    <p>Drag & drop images here or click to browse</p>
+                                                </div>
+                                                <input type="file" id="file-input" multiple accept="image/*" class="file-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-none" id="file-list-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Selected Files</label>
+                                            <ul class="list-group" id="file-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary" id="process-button">
+                                            <i class="bi bi-geo-alt"></i> Geotag Images
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="clear-button">
+                                            <i class="bi bi-x-circle"></i> Clear Form
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4 d-none" id="results-card">
+                        <div class="card-header">
+                            Processing Results
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-success" id="success-message"></div>
+                            <div class="text-center">
+                                <a href="#" class="btn btn-success" id="download-button">
+                                    <i class="bi bi-download"></i> Download Processed Images
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress mt-4 d-none" id="progress-container">
+                        <div class="progress-bar" role="progressbar" id="progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Conversion Section -->
+                <div class="content-section" id="conversion-section">
+                    <h2>Image Conversion</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="conversion-form">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Output Format</label>
+                                            <select class="form-select" id="conversion-output-format">
+                                                <option value="jpeg">JPEG</option>
+                                                <option value="png">PNG</option>
+                                                <option value="tiff">TIFF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Upload Images</label>
+                                            <div class="upload-area" id="conversion-upload-area">
+                                                <div class="upload-prompt">
+                                                    <i class="bi bi-cloud-arrow-up"></i>
+                                                    <p>Drag & drop images here or click to browse</p>
+                                                </div>
+                                                <input type="file" id="conversion-file-input" multiple accept="image/*" class="file-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-none" id="conversion-file-list-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Selected Files</label>
+                                            <ul class="list-group" id="conversion-file-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary" id="conversion-process-button">
+                                            <i class="bi bi-arrow-repeat"></i> Convert Images
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="conversion-clear-button">
+                                            <i class="bi bi-x-circle"></i> Clear Form
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4 d-none" id="conversion-results-card">
+                        <div class="card-header">
+                            Processing Results
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-success" id="conversion-success-message"></div>
+                            <div class="text-center">
+                                <a href="#" class="btn btn-success" id="conversion-download-button">
+                                    <i class="bi bi-download"></i> Download Converted Images
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress mt-4 d-none" id="conversion-progress-container">
+                        <div class="progress-bar" role="progressbar" id="conversion-progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Resizing Section -->
+                <div class="content-section" id="resizing-section">
+                    <h2>Image Resizing</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="resizing-form">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Resize Mode</label>
+                                            <select class="form-select" id="resize-mode">
+                                                <option value="exact">Exact Dimensions</option>
+                                                <option value="fit" selected>Fit Within Dimensions</option>
+                                                <option value="fill">Fill Dimensions</option>
+                                                <option value="percentage">Percentage</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Output Format</label>
+                                            <select class="form-select" id="resizing-output-format">
+                                                <option value="jpeg">JPEG</option>
+                                                <option value="png">PNG</option>
+                                                <option value="tiff">TIFF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3" id="dimensions-container">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Width (pixels)</label>
+                                            <input type="number" class="form-control" id="width" placeholder="Width">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Height (pixels)</label>
+                                            <input type="number" class="form-control" id="height" placeholder="Height">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-none" id="percentage-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Percentage</label>
+                                            <input type="range" class="form-range" id="percentage" min="1" max="200" value="100">
+                                            <div class="text-center" id="percentage-value">100%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Upload Images</label>
+                                            <div class="upload-area" id="resizing-upload-area">
+                                                <div class="upload-prompt">
+                                                    <i class="bi bi-cloud-arrow-up"></i>
+                                                    <p>Drag & drop images here or click to browse</p>
+                                                </div>
+                                                <input type="file" id="resizing-file-input" multiple accept="image/*" class="file-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-none" id="resizing-file-list-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Selected Files</label>
+                                            <ul class="list-group" id="resizing-file-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary" id="resizing-process-button">
+                                            <i class="bi bi-aspect-ratio"></i> Resize Images
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="resizing-clear-button">
+                                            <i class="bi bi-x-circle"></i> Clear Form
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4 d-none" id="resizing-results-card">
+                        <div class="card-header">
+                            Processing Results
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-success" id="resizing-success-message"></div>
+                            <div class="text-center">
+                                <a href="#" class="btn btn-success" id="resizing-download-button">
+                                    <i class="bi bi-download"></i> Download Resized Images
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress mt-4 d-none" id="resizing-progress-container">
+                        <div class="progress-bar" role="progressbar" id="resizing-progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Watermark Section -->
+                <div class="content-section" id="watermark-section">
+                    <h2>Image Watermarking</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="watermark-form">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Watermark Type</label>
+                                            <select class="form-select" id="watermark-type">
+                                                <option value="text" selected>Text</option>
+                                                <option value="image">Image</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Output Format</label>
+                                            <select class="form-select" id="watermark-output-format">
+                                                <option value="jpeg">JPEG</option>
+                                                <option value="png">PNG</option>
+                                                <option value="tiff">TIFF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3" id="watermark-text-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Watermark Text</label>
+                                            <input type="text" class="form-control" id="watermark-text" placeholder="Enter watermark text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-none" id="watermark-image-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Watermark Image</label>
+                                            <input type="file" class="form-control" id="watermark-image" accept="image/*">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Position</label>
+                                            <select class="form-select" id="watermark-position">
+                                                <option value="center">Center</option>
+                                                <option value="top_left">Top Left</option>
+                                                <option value="top_right">Top Right</option>
+                                                <option value="bottom_left">Bottom Left</option>
+                                                <option value="bottom_right" selected>Bottom Right</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Opacity</label>
+                                            <input type="range" class="form-range" id="watermark-opacity" min="10" max="100" value="50">
+                                            <div class="text-center" id="opacity-value">50%</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Size</label>
+                                            <input type="range" class="form-range" id="watermark-size" min="5" max="100" value="30">
+                                            <div class="text-center" id="size-value">30%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Upload Images</label>
+                                            <div class="upload-area" id="watermark-upload-area">
+                                                <div class="upload-prompt">
+                                                    <i class="bi bi-cloud-arrow-up"></i>
+                                                    <p>Drag & drop images here or click to browse</p>
+                                                </div>
+                                                <input type="file" id="watermark-file-input" multiple accept="image/*" class="file-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-none" id="watermark-file-list-container">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Selected Files</label>
+                                            <ul class="list-group" id="watermark-file-list"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary" id="watermark-process-button">
+                                            <i class="bi bi-image"></i> Watermark Images
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="watermark-clear-button">
+                                            <i class="bi bi-x-circle"></i> Clear Form
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4 d-none" id="watermark-results-card">
+                        <div class="card-header">
+                            Processing Results
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-success" id="watermark-success-message"></div>
+                            <div class="text-center">
+                                <a href="#" class="btn btn-success" id="watermark-download-button">
+                                    <i class="bi bi-download"></i> Download Watermarked Images
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress mt-4 d-none" id="watermark-progress-container">
+                        <div class="progress-bar" role="progressbar" id="watermark-progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Presets Manager Section -->
+                <div class="content-section" id="presets-section">
+                    <h2>Presets Manager</h2>
+                    
+                    <ul class="nav nav-tabs" id="presets-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#city-presets-tab">City Presets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#client-presets-tab">Client Presets</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content mt-3">
+                        <!-- City Presets Tab -->
+                        <div class="tab-pane fade show active" id="city-presets-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="card-title">City Presets</h5>
+                                        <button class="btn btn-primary btn-sm" id="add-city-preset">
+                                            <i class="bi bi-plus"></i> Add City
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="city-presets-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Country</th>
+                                                    <th>Center Coordinates</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Will be populated dynamically -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Client Presets Tab -->
+                        <div class="tab-pane fade" id="client-presets-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="card-title">Client Presets</h5>
+                                        <button class="btn btn-primary btn-sm" id="add-client-preset">
+                                            <i class="bi bi-plus"></i> Add Client
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="client-presets-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Contact</th>
+                                                    <th>Location</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Will be populated dynamically -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- City Preset Modal -->
+    <div class="modal fade" id="city-preset-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="city-preset-modal-title">Add City Preset</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="city-preset-form">
+                        <input type="hidden" id="city-preset-id">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">City Name</label>
+                                    <input type="text" class="form-control" id="city-preset-name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="city-preset-country" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Center Latitude</label>
+                                    <input type="text" class="form-control" id="city-preset-center-lat" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Center Longitude</label>
+                                    <input type="text" class="form-control" id="city-preset-center-lng" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6>Boundaries</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Top Left Latitude</label>
+                                    <input type="text" class="form-control" id="city-preset-top-left-lat" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Top Left Longitude</label>
+                                    <input type="text" class="form-control" id="city-preset-top-left-lng" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Top Right Latitude</label>
+                                    <input type="text" class="form-control" id="city-preset-top-right-lat" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Top Right Longitude</label>
+                                    <input type="text" class="form-control" id="city-preset-top-right-lng" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Bottom Left Latitude</label>
+                                    <input type="text" class="form-control" id="city-preset-bottom-left-lat" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Bottom Left Longitude</label>
+                                    <input type="text" class="form-control" id="city-preset-bottom-left-lng" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Bottom Right Latitude</label>
+                                    <input type="text" class="form-control" id="city-preset-bottom-right-lat" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Bottom Right Longitude</label>
+                                    <input type="text" class="form-control" id="city-preset-bottom-right-lng" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Zoom Level</label>
+                                    <input type="number" class="form-control" id="city-preset-zoom-level" min="1" max="20" value="13" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-city-preset">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Preset Modal -->
+    <div class="modal fade" id="client-preset-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="client-preset-modal-title">Add Client Preset</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="client-preset-form">
+                        <input type="hidden" id="client-preset-id">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Client Name</label>
+                                    <input type="text" class="form-control" id="client-preset-name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Creator/Artist</label>
+                                    <input type="text" class="form-control" id="client-preset-creator">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Creator Title</label>
+                                    <input type="text" class="form-control" id="client-preset-creator-title">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="client-preset-address">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">City</label>
+                                    <input type="text" class="form-control" id="client-preset-city">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">State/Province</label>
+                                    <input type="text" class="form-control" id="client-preset-state">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Postal Code</label>
+                                    <input type="text" class="form-control" id="client-preset-postal-code">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="client-preset-country">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="client-preset-phone">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="client-preset-email">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Website URL</label>
+                                    <input type="url" class="form-control" id="client-preset-url">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Keywords (comma separated)</label>
+                                    <input type="text" class="form-control" id="client-preset-keywords">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-client-preset">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alert-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alert-modal-title">Alert</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="alert-modal-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
