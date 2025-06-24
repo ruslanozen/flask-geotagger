@@ -1,0 +1,49 @@
+# Node.js
+node_modules/
+electron-frontend/node_modules/
+electron-frontend/dist/
+electron-frontend/out/
+electron-frontend/.env
+
+# Python
+.venv/
+flask_image_processor/.venv/
+flask_image_processor/__pycache__/
+flask_image_processor/**/*.pyc
+flask_image_processor/**/*.pyo
+flask_image_processor/**/*.pyd
+flask_image_processor/.env
+flask_image_processor/.DS_Store
+
+# Build outputs
+build/
+dist/
+*.spec
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# VSCode settings (optional)
+.vscode/
+
+# Mac system files
+._*
+
+# Windows system files
+ehthumbs.db
+Desktop.ini
+
+# PyInstaller build
+*.spec
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Misc
+.env
